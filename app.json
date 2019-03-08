@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/area-history/area-history",
+    "pages/mine/mine",
+    "pages/date-tools/date-tools",
+    "pages/my-date/my-date",
+    "pages/add-bill/add-bill",
+    "pages/date-history/date-history",
+    "pages/tool-info/tool-info",
+    "pages/customer/customer",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "记账小猪手",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#DCDCDC",
+    "selectedColor": "#000000",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/bill_select.png",
+        "iconPath": "images/bill.png",
+        "pagePath": "pages/index/index",
+        "text": "账单"
+      },
+      {
+        "selectedIconPath": "images/add.png",
+        "iconPath": "images/add.png",
+        "pagePath": "pages/add-bill/add-bill",
+        "text": "记账"
+      },
+      {
+        "selectedIconPath": "images/mime-select.png",
+        "iconPath": "images/mime-unselect.png",
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  }
+}
