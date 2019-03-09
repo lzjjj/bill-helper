@@ -14,31 +14,32 @@ Page({
     goBack: false,
     goBackHome: false,
     userDetail: "",
-    balance:"4.00",
-    days:"2",
-    records:"6"
+    balance:"",
+    days:"",
+    records:""
   },
   onShow: function () {
+    console.log(app.globalData)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-      if (app.globalData.userDetail) {
-        this.setData({
-          userDetail: app.globalData.userDetail,
-        })
-      } else {
-        wx.getStorage({
-          key: 'trd_session',
-          success: (res) => {
-            this.setData({
-              trd_session: res.data
-            })
-            this.getMoreInfo(this.data.trd_session);
-          },
-        })
-      }
+      // if (app.globalData.userDetail) {
+      //   this.setData({
+      //     userDetail: app.globalData.userDetail,
+      //   })
+      // } else {
+      //   wx.getStorage({
+      //     key: 'trd_session',
+      //     success: (res) => {
+      //       this.setData({
+      //         trd_session: res.data
+      //       })
+      //       // this.getMoreInfo(this.data.trd_session);
+      //     },
+      //   })
+      // }
     }
   },
   /**
@@ -50,7 +51,8 @@ Page({
       success: (res) => {
         this.setData({
           trd_session: res.data
-        })
+        }),
+        this.getMoreInfo(this.data.trd_session)
       },
     })
     if (options.goBack) {
@@ -70,34 +72,14 @@ Page({
     wx.request({
       url: requestUrl.userDetail + '?trd_session=' + trd_session,
       success: res => {
-        if (res.data.status == 'success') {
+        console.log(res)
+        console.log(res.data)
+        if (res.statusCode == 200) {
           this.setData({
-            userDetail: res.data.data,
+            balance: res.data.balance,
+            days: res.data.days,
+            records: res.data.records,
           })
-          app.globalData.userDetail = res.data.data
-          if (app.globalData.goBack) {
-            app.globalData.goBack = false
-            wx.navigateTo({
-              url: '/pages/tool-info/tool-info?id=' + app.globalData.currentToolId,
-            })
-          }
-          if (app.globalData.goBackHome) {
-            console.log('------------goBackHome')
-            wx.showModal({
-              title: '提示',
-              content: '登录成功，您将跳转首页？',
-              success: (res) => {
-                app.globalData.goBackHome = false
-                if (res.confirm) {
-                  wx.switchTab({
-                    url: "/pages/index/index"
-                  })
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
-            })
-          }
         }
       }
     })

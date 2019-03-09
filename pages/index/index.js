@@ -48,19 +48,7 @@ Page({
       }
   },
   bindDateChange: function (e) {
-    wx.request({
-      url: requestUrl.defaultMonthBill + e.detail.value,
-      success: res => {
-        console.log(res)
-        if (res.statusCode == '200') {
-          console.log('调api')
-          console.log(res.data)
-          this.setData({
-            bill: res.data.bill,
-          })
-        }
-      }
-    })
+    console.log('picker发送选择改变，携带值为', e.detail.value)
     //选定月份后重新获取账单信息
     this.setData({
       date: e.detail.value
@@ -77,13 +65,13 @@ Page({
     wx.request({
       url: requestUrl.defaultMonthBill + '2019-03',
       success: res => {
-        console.log(res)
-        if (res.statusCode == '200') {
+        if (res.data.status == 'success') {
           console.log('调api')
           console.log(res.data)
           this.setData({
-            bill: res.data.bill,
+            userDetail: res.data.data,
           })
+          app.globalData.userDetail = res.data.data
         }
       }
     })
@@ -116,7 +104,7 @@ Page({
     let passdata = e.currentTarget.dataset.passdata
     console.log(passdata);
     wx.navigateTo({
-      url: '/pages/bill-detail/bill-detail'
+      url: '/pages/bill-detail/bill-detail?'
     })
   }
 
