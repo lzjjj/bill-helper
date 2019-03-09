@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/add-bill/add-bill",
     "pages/index/index",
     "pages/bill-detail/bill-detail",
-    "pages/add-bill/add-bill",
     "pages/mine/mine"
   ],
   "window": {

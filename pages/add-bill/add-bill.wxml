@@ -7,9 +7,9 @@
     </view>
 
     <view class='bill-type-content'>
-      <view wx:for='{{typeList}}' class='bill-type-item'>
+      <view wx:for='{{outlaytypeList}}' class='bill-type-item'>
         <image src='{{item.imgUrl}}' class='type-item-image'></image>
-        <text>{{item.name}}</text>
+        <text>{{item.type}}</text>
       </view>
     </view>
   </view>

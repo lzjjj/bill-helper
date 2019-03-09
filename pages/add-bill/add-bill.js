@@ -63,38 +63,41 @@ Page({
     inputStrShow: '',
     date: '今天',
     inputValue: '',
-    typeList: [{
-      imgUrl: '/images/food.png',
-      name: "餐饮"
-    }, {
-        imgUrl: '/images/shop.png',
-      name: "购物"
-    }, {
-        imgUrl: '/images/traffic.png',
-      name: "交通"
-      }, {
-        imgUrl: '/images/medical.png',
-        name: "医疗"
-      }, {
-        imgUrl: '/images/education.png',
-        name: "教育"
-      }, {
-        imgUrl: '/images/amusement.png',
-        name: "娱乐"
-      }, {
-        imgUrl: '/images/live.png',
-        name: "居住"
-      }, {
-        imgUrl: '/images/orther.png',
-        name: "其他"
-      },]
+    outlaytypeList: [],
+    incometypeList: [],
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    wx.request({
+      url: requestUrl.outlayKind,
+      success: res => {
+        console.log(res)
+        if (res.statusCode == '200') {
+          console.log('调api')
+          console.log(res.data)
+          this.setData({
+            outlaytypeList: res.data,
+          })
+        }
+      }
+    })
+    wx.request({
+      url: requestUrl.incomeKind,
+      success: res => {
+        console.log(res)
+        if (res.statusCode == '200') {
+          console.log('调api')
+          console.log(res.data)
+          this.setData({
+            incometypeList: res.data,
+          })
+        }
+      }
+    })
   },
 
   bindKeyInput(e) {
