@@ -18,10 +18,8 @@ App({
         wx.getStorage({
           key: 'trd_session',
           success: res1 => {
-
             if (res1.data != undefined) {
               wx.request({
-
                 url: requestUrl.login + "?trd_session=" + res1.data,
                 header: {
                   'content-type': 'application/json' // 默认值
