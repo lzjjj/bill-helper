@@ -46,7 +46,7 @@
           <text class="course">{{item.date}}</text>
           <text class='course' >收:{{item.income?item.income:0}}  支:{{item.outlay?item.outlay:0}}</text>
         </view>
-        <view class='list-item' bindtap="itemTapped" data-passdata="工资+200" wx:for="{{item.records}}" wx:for-item="detail" wx:key>
+        <view class='list-item' bindtap="itemTapped"  wx:for="{{item.records}}" wx:for-item="detail" wx:key data-recordid="{{detail.id}}">
           <text class="chapter">{{detail.type?detail.type:0}}</text>
           <text class="chapter">{{detail.money?detail.money:0}}</text>
         </view>

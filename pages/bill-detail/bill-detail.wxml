@@ -4,7 +4,7 @@
     <view style='display:flex;justify-content:center;align-items:center;'>
       <text>金额</text>
     </view>
-    <view><input value='0.00'></input></view>
+    <view><input value='{{amount}}'></input></view>
   </view>
   <view class='list-item' >
     <view style='display:flex;justify-content:center;align-items:center;'>
@@ -35,7 +35,7 @@
     <view style='display:flex;justify-content:center;align-items:center;'>
       <text>备注</text>
     </view>
-    <view><input value='无'></input></view>
+    <view><input value='{{remark}}'></input></view>
   </view>
   </view>
   <button bindtap='editBill'>保存</button>
