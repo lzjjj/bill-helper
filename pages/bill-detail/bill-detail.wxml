@@ -2,9 +2,42 @@
 <view class='mine-list'>
   <view class='list-item' >
     <view style='display:flex;justify-content:center;align-items:center;'>
-      <text>钱包余额</text>
+      <text>金额</text>
     </view>
-    <view>0.00元</view>
+    <view><input value='0.00'></input></view>
+  </view>
+  <view class='list-item' >
+    <view style='display:flex;justify-content:center;align-items:center;'>
+      <text>类型</text>
+    </view>
+    <view class="section">
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view class="picker">
+        {{array[index]}}
+      </view>
+  </picker>
+</view>
+  </view>
+  <view class='list-item' >
+    <view style='display:flex;justify-content:center;align-items:center;'>
+      <text>日期</text>
+    </view>
+    <view class="section">
+  <!-- <view class="section__title">日期选择器</view> -->
+    <picker mode="date" value="{{date}}" start="2017-09-01" end="2020-09-01"  bindchange="bindDateChange">
+      <view class="picker">
+         {{date}}
+      </view>
+    </picker>
   </view>
   </view>
+  <view class='list-item' >
+    <view style='display:flex;justify-content:center;align-items:center;'>
+      <text>备注</text>
+    </view>
+    <view><input value='无'></input></view>
+  </view>
+  </view>
+  <button bindtap='editBill'>保存</button>
+  <button bindtap='deleteBill'>删除</button>
 </view>

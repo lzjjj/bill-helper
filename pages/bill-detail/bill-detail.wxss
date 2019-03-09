@@ -11,3 +11,13 @@
   border-bottom: 1px solid #f8f8f8;
   padding-bottom: 0.4rem;
 }
+
+/** wxss **/
+/** 修改button默认的点击态样式类**/
+.button-hover {
+  background-color: red;
+}
+/** 添加自定义button点击态样式类**/
+.other-button-hover {
+  background-color: blue;
+}
