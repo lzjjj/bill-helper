@@ -1,4 +1,30 @@
 <!--pages/customer/customer.wxml-->
-<view style='flex:1'>
-账单添加页面
+<view class='Total'>
+  <view class='search-nav' style='flex:1'>
+    <view class="{{billType==0?'search-nav-left active':'search-nav-left'}}" data-type='0' bindtap='typeChange'>支出 </view>
+    <view class="{{billType==1?'search-nav-right active':'search-nav-right'}}" data-type='1' bindtap='typeChange'>收入 </view>
+  </view>
+
+  <view style='align-self: flex-end;'>
+    
+    
+    <view style='display:flex;'>
+      <view class="weui-grids" style="">
+        <view class="weui-grid" wx:for="{{keyboardvalue}}" data-value="{{item.value}}" style="text-align:center;" bindtap='setpass'>
+          <text wx:if="{{item.value!='clear'}}">{{item.value}}</text>
+          <icon type="cancel" color="black" wx:if="{{item.value=='clear'}}" bindtap='setpass'></icon>
+        </view>
+      </view>
+
+      <view class='keyboard-right'>
+        <view class="weui-grid keyboard-right-display {{ index==2 ? 'for-handle' : ''}}" wx:for="{{keyboardvalue1}}" data-value="{{item.value}}" style="text-align:center;" bindtap='setpass'>
+          <text>{{item.value}}</text>
+        </view>
+      </view>
+
+    </view>
+  </view>
+
+
+
 </view>

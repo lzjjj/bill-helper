@@ -8,12 +8,27 @@ Page({
    */
   data: {
     trd_session: "",
-    userDetail: "",
-    userInfo: "",
-    areaList: [],
-    index: 0,
-    isShowBtn: false,
-    hasUserInfo:false
+    billType: 0, //0: pay out;1:get in 
+    keyboardvalue: [
+      { value: 1 },
+      { value: 2 },
+      { value: 3 },
+      { value: 4 },
+      { value: 5 },
+      { value: 6 },
+      { value: 7 },
+      { value: 8 },
+      { value: 9 },
+      { value: "." },
+      { value: 0 },
+      { value: 'clear' },
+    ],
+
+    keyboardvalue1: [
+      { value: '+' },
+      { value: '-' },
+      { value: '完成' }
+    ],
   },
 
   /**
@@ -21,6 +36,13 @@ Page({
    */
    onLoad: function (options) {
   
+  },
+
+  typeChange(e) {
+    var type = e.currentTarget.dataset.type;
+    this.setData({
+      billType: type
+    })
   },
 
   /**
