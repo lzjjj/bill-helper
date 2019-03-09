@@ -1,10 +1,13 @@
 //index.js
 import requestUrl from "../../common/api.js"
+var util = require('../../utils/util.js')
 const app = getApp()
 //const currentDay=getDate(year, month)
+const date=new Date()
 Page({
   data: {
-    date: '2017-09',
+    //date: '2017-09',
+    date:'',
     bill:
       [
         {
@@ -38,16 +41,40 @@ Page({
           ]
         }
       ],
+      monthIO:{
+        income:'200',
+        outlay:'150',
+        balance:'50'
+      }
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
+    //选定月份后重新获取账单信息
     this.setData({
       date: e.detail.value
     })
+    //查询所选月份的账单
   },
   onShow: function (){
+    //call 一次api获取当前月份的账单
   },
   onLoad: function () {
+    this.setData({
+      date: util.formatTime(new Date())
+    });
+    wx.request({
+      url: requestUrl.defaultMonthBill + '2019-03',
+      success: res => {
+        if (res.data.status == 'success') {
+          console.log('调api')
+          console.log(res.data)
+          this.setData({
+            userDetail: res.data.data,
+          })
+          app.globalData.userDetail = res.data.data
+        }
+      }
+    })
   },
 
   onReachBottom: function () { //到底部触发事件

@@ -1,4 +1,5 @@
-const globalUrl = "http://111.230.92.41:8000/"
+//const globalUrl = "http://111.230.92.41:8000/"
+const globalUrl = "http://liangca3-w10:8888/"
 let requestUrl = {
   'areaList': globalUrl + 'province/',//获取城市以及区域接口
   'login': globalUrl + 'usr/welogin/',//登录接口
@@ -15,5 +16,6 @@ let requestUrl = {
   'addComment': globalUrl + 'opr/comment/',//添加评论列表
   'setUserInfo': globalUrl + 'usr/we_update/',//将微信信息存入书库
   'updateDateInfo': globalUrl + 'opr/update/',//预约工具
+  'defaultMonthBill': globalUrl + 'api/v1/accounts/month/',//获取默认月份的账单
 }
 export default requestUrl
