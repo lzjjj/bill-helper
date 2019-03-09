@@ -82,8 +82,8 @@ page {
 
 .bill-type-image {
   padding: 5px 5px 0 10px;
-  width: 25px;
-  height: 25px;
+  width: 40px;
+  height: 40px;
 }
 
 .remark-content {

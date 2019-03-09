@@ -66,6 +66,21 @@ Page({
     outlaytypeList: [],
     incometypeList: [],
 
+    }, {
+        imgUrl: '/images/red-unselect.png',
+        name: "收红包"
+      }, {
+        imgUrl: '/images/invest-unselect.png',
+        name: "投资"
+      }, {
+        imgUrl: '/images/borrow-unselect.png',
+        name: "借入款"
+      }, {
+        imgUrl: '/images/other-unselect.png',
+        name: "其他"
+      }],
+    expendList: [{
+      CurrentIndex:null
   },
 
   /**
@@ -99,7 +114,22 @@ Page({
       }
     })
   },
-
+  changeCurrentIndex(e){
+    var value = e.currentTarget.dataset.index;
+    var expendList = this.data.expendList
+    expendList.map(function(item,index){
+      console.log(index)
+      if (value == index) {
+        item.imgUrl = '/images/' + item.imgUrl.split("/")[1].split("-")[0] + '.png'
+      } else {
+        item.imgUrl = '/images/' + item.imgUrl.split("/")[1] + '-unselect.png'
+      }
+    })
+    this.setData({
+      expendList: expendList,
+      CurrentIndex: index
+    })
+  },
   bindKeyInput(e) {
     console.log(e.detail.value)
     this.setData({
@@ -147,7 +177,10 @@ Page({
           (inputStr[inputStr.length - 1] == '-' ?
             parseInt(amount) + parseInt(popvalue) :
             (inputStr.length == 0 ? 0 :
-              amount)),
+              (
+                !inputStr.includes("+") && !inputStr.includes("-") ? 
+                inputStr.join('') : amount
+              ))),
         inputStrShow: inputStr.join('')
       })
     }

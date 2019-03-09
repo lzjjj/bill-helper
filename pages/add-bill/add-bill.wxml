@@ -7,9 +7,13 @@
     </view>
 
     <view class='bill-type-content'>
-      <view wx:for='{{outlaytypeList}}' class='bill-type-item'>
+      <view wx:for='{{expendList}}' wx:if="{{billType==0}}" class='bill-type-item' data-index='{{index}}' bindtap='changeCurrentIndex'>
         <image src='{{item.imgUrl}}' class='type-item-image'></image>
-        <text>{{item.type}}</text>
+        <text>{{item.name}}</text>
+      </view>
+      <view wx:for='{{incomeList}}' wx:if="{{billType==1}}" class='bill-type-item' data-index='{{index}}' bindtap='changeCurrentIndex'>
+        <image src='{{item.imgUrl}}' class='type-item-image'></image>
+        <text >{{item.name}}</text>
       </view>
     </view>
   </view>
@@ -18,8 +22,11 @@
   <view style='align-self: flex-end;background-color:#FFFFFF'>
     <view class='type-item'>
       <view class='type-item' style='padding:0.5rem 0;'>
-        <image src='/images/my-message.png' class='bill-type-image'></image>
-        <text>餐饮</text>
+
+        <image wx:if="{{billType==0}}" src="{{CurrentIndex == null ? expendList[0].imgUrl : expendList[CurrentIndex].imgUrl}}" class='bill-type-image'></image>
+        <image wx:if="{{billType==1}}" src="{{CurrentIndex == null ? incomeList[0].imgUrl : incomeList[CurrentIndex].imgUrl}}" class='bill-type-image'></image>
+        <text wx:if="{{billType==0}}">{{CurrentIndex == null ? expendList[0].name : expendList[CurrentIndex].name }}</text>
+        <text wx:if="{{billType==1}}">{{CurrentIndex == null ? incomeList[0].name : incomeList[CurrentIndex].name}}</text>
       </view>
       <view style='padding-right: 1rem;'>
         <view>{{inputStr.length != 0 ? amount : '0.00'}}</view>
