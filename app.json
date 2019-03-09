@@ -1,15 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/area-history/area-history",
     "pages/mine/mine",
-    "pages/date-tools/date-tools",
-    "pages/my-date/my-date",
-    "pages/add-bill/add-bill",
-    "pages/date-history/date-history",
-    "pages/tool-info/tool-info",
-    "pages/customer/customer",
-    "pages/logs/logs"
+    "pages/add-bill/add-bill"
   ],
   "window": {
     "backgroundTextStyle": "light",
