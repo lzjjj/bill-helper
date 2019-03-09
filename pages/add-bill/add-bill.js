@@ -65,22 +65,7 @@ Page({
     inputValue: '',
     outlaytypeList: [],
     incometypeList: [],
-
-    }, {
-        imgUrl: '/images/red-unselect.png',
-        name: "收红包"
-      }, {
-        imgUrl: '/images/invest-unselect.png',
-        name: "投资"
-      }, {
-        imgUrl: '/images/borrow-unselect.png',
-        name: "借入款"
-      }, {
-        imgUrl: '/images/other-unselect.png',
-        name: "其他"
-      }],
-    expendList: [{
-      CurrentIndex:null
+    CurrentIndex:null
   },
 
   /**
