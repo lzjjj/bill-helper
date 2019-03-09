@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/add/add",
     "pages/bill-detail/bill-detail",
     "pages/add-bill/add-bill",
     "pages/mine/mine"
@@ -25,7 +26,7 @@
       {
         "selectedIconPath": "images/add.png",
         "iconPath": "images/add.png",
-        "pagePath": "pages/add-bill/add-bill",
+        "pagePath": "pages/add/add",
         "text": "记账"
       },
       {
