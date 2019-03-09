@@ -1,9 +1,43 @@
 //index.js
 import requestUrl from "../../common/api.js"
 const app = getApp()
+//const currentDay=getDate(year, month)
 Page({
   data: {
-    index: 0,
+    date: '2017-09',
+    bill:
+      [
+        {
+          date:'03月08日',
+          income:'',
+          outlay:'',
+          records:[
+            {
+            type: '工资',
+            money: '+200'
+           },
+            {
+            type: '人情',
+            money: '-100'
+            }
+          ]  
+        },
+        {
+          date: '03月09日',
+          income: '',
+          outlay: '',
+          records: [
+            {
+              type: '工资',
+              money: '+300'
+            },
+            {
+              type: '人情',
+              money: '-200'
+            }
+          ]
+        }
+      ],
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)

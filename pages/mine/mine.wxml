@@ -12,20 +12,20 @@
       <image src='/images/my-message.png' class='item-img'></image>
       <text>钱包余额</text>
     </view>
-    <view>0.00元</view>
+    <view>{{balance}} 元</view>
   </view>
   <view class='list-item' bindtap='luanchToMyDate'>
     <view style='display:flex;justify-content:center;align-items:center;'>
       <image src='/images/my-order.png' class='item-img'></image>
       <text>记账总天数</text>
     </view>
-    <view>1天</view>
+    <view>{{days}} 天</view>
   </view>
   <view class='list-item' bindtap='luanchToMyDate'>
     <view style='display:flex;justify-content:center;align-items:center;'>
       <image src='/images/my-order.png' class='item-img'></image>
       <text>记账总笔数</text>
     </view>
-    <view>1笔</view>
+    <view>{{records}} 笔</view>
   </view>
 </view>
