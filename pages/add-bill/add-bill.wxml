@@ -7,9 +7,9 @@
     </view>
 
     <view class='bill-type-content'>
-      <view wx:for='{{8}}' class='bill-type-item'>
-        <image src='/images/salary.jpg' class='type-item-image'></image>
-        <text>餐饮</text>
+      <view wx:for='{{typeList}}' class='bill-type-item'>
+        <image src='{{item.imgUrl}}' class='type-item-image'></image>
+        <text>{{item.name}}</text>
       </view>
     </view>
   </view>
@@ -17,25 +17,30 @@
 
   <view style='align-self: flex-end;background-color:#FFFFFF'>
     <view class='type-item'>
-      <view class='type-item'>
+      <view class='type-item' style='padding:0.5rem 0;'>
         <image src='/images/my-message.png' class='bill-type-image'></image>
         <text>餐饮</text>
       </view>
       <view style='padding-right: 1rem;'>
         <view>{{inputStr.length != 0 ? amount : '0.00'}}</view>
-        <view>{{inputStr.length != 0 ? inputStrShow : ''}}</view>
+        <view style='color:gainsboro;font-size:0.7rem;'>{{inputStr.length != 0 ? inputStrShow : ''}}</view>
       </view>
     </view>
 
     <view style='display:flex;width:100%'>
       <view class='remark-content'>
         <image src='/images/remark.png' class='remark-image'></image>
-        <input placeholder='备注一下' placeholder-style='font-size:0.8rem'></input>
+        <input placeholder='备注一下' placeholder-style='font-size:0.8rem' bindinput='bindKeyInput'></input>
       </view>
 
       <view class='date' bindtap='setpass'>
-        <view class="weui-grid keyboard-right-display" style="text-align:center;" bindtap='handleClickSoftKeyBoard'>
-          <text>今天</text>
+        <view class="weui-grid keyboard-right-display" style="text-align:center;line-height:30px" bindtap='handleClickSoftKeyBoard'>
+          <!-- <view class="section__title">日期选择器</view> -->
+          <picker mode="date" value="{{date}}" start="2017-09-01" end="2020-09-01" fields="day" bindchange="bindDateChange">
+            <view class="picker">
+              {{date}}
+            </view>
+          </picker>
         </view>
       </view>
     </view>
