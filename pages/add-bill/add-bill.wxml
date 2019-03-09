@@ -1,23 +1,55 @@
 <!--pages/customer/customer.wxml-->
 <view class='Total'>
-  <view class='search-nav' style='flex:1'>
-    <view class="{{billType==0?'search-nav-left active':'search-nav-left'}}" data-type='0' bindtap='typeChange'>支出 </view>
-    <view class="{{billType==1?'search-nav-right active':'search-nav-right'}}" data-type='1' bindtap='typeChange'>收入 </view>
+  <view style='flex:1;background-color:#FFFFFF'>
+    <view class='search-nav'>
+      <view class="{{billType==0?'search-nav-left active':'search-nav-left'}}" data-type='0' bindtap='typeChange'>支出 </view>
+      <view class="{{billType==1?'search-nav-right active':'search-nav-right'}}" data-type='1' bindtap='typeChange'>收入 </view>
+    </view>
+
+    <view class='bill-type-content'>
+      <view wx:for='{{8}}' class='bill-type-item'>
+        <image src='/images/salary.jpg' class='type-item-image'></image>
+        <text>餐饮</text>
+      </view>
+    </view>
   </view>
 
-  <view style='align-self: flex-end;'>
-    
-    
+
+  <view style='align-self: flex-end;background-color:#FFFFFF'>
+    <view class='type-item'>
+      <view class='type-item'>
+        <image src='/images/my-message.png' class='bill-type-image'></image>
+        <text>餐饮</text>
+      </view>
+      <view style='padding-right: 1rem;'>
+        <view>{{inputStr.length != 0 ? amount : '0.00'}}</view>
+        <view>{{inputStr.length != 0 ? inputStrShow : ''}}</view>
+      </view>
+    </view>
+
+    <view style='display:flex;width:100%'>
+      <view class='remark-content'>
+        <image src='/images/remark.png' class='remark-image'></image>
+        <input placeholder='备注一下' placeholder-style='font-size:0.8rem'></input>
+      </view>
+
+      <view class='date' bindtap='setpass'>
+        <view class="weui-grid keyboard-right-display" style="text-align:center;" bindtap='handleClickSoftKeyBoard'>
+          <text>今天</text>
+        </view>
+      </view>
+    </view>
+
     <view style='display:flex;'>
       <view class="weui-grids" style="">
-        <view class="weui-grid" wx:for="{{keyboardvalue}}" data-value="{{item.value}}" style="text-align:center;" bindtap='setpass'>
+        <view class="weui-grid" wx:for="{{keyboardvalue}}" data-value="{{item.value}}" style="text-align:center;" bindtap='handleClickSoftKeyBoard'>
           <text wx:if="{{item.value!='clear'}}">{{item.value}}</text>
-          <icon type="cancel" color="black" wx:if="{{item.value=='clear'}}" bindtap='setpass'></icon>
+          <icon type="cancel" color="black" wx:if="{{item.value=='clear'}}" bindtap='handleClickSoftKeyBoard'></icon>
         </view>
       </view>
 
       <view class='keyboard-right'>
-        <view class="weui-grid keyboard-right-display {{ index==2 ? 'for-handle' : ''}}" wx:for="{{keyboardvalue1}}" data-value="{{item.value}}" style="text-align:center;" bindtap='setpass'>
+        <view class="weui-grid keyboard-right-display {{ index==2 ? 'for-handle' : ''}}" wx:for="{{keyboardvalue1}}" data-value="{{item.value}}" style="text-align:center;" bindtap='handleClickSoftKeyBoard'>
           <text>{{item.value}}</text>
         </view>
       </view>

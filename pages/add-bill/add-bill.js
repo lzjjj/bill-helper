@@ -29,6 +29,10 @@ Page({
       { value: '-' },
       { value: '完成' }
     ],
+
+    amount:0.00,
+    inputStr: [],
+    inputStrShow:''
   },
 
   /**
@@ -45,6 +49,49 @@ Page({
     })
   },
 
+  handleClickSoftKeyBoard(e) {
+    var value = e.currentTarget.dataset.value;
+    var regNum = new RegExp('[0-9]', 'g');
+    var rsNum = regNum.exec(value);
+    var inputStr = this.data.inputStr
+    var amount = this.data.amount
+    if (rsNum != null) {
+      inputStr.push(value)
+
+      this.setData({
+        inputStr: inputStr,
+        amount: inputStr[inputStr.length - 2] == '+' ? parseInt(amount) + parseInt(rsNum) :
+          (inputStr[inputStr.length - 2] == '-' ?
+            parseInt(amount) - parseInt(rsNum) : inputStr.join('')),
+        inputStrShow: inputStr.join('')
+      })
+
+    }
+    if (value == 'clear' && this.data.inputStr.length!=0) {
+      var popvalue = inputStr.pop();
+
+      this.setData({
+        inputStr: inputStr,
+        amount: inputStr[inputStr.length - 1] == '+' ? parseInt(amount) - parseInt(popvalue) :
+          (inputStr[inputStr.length - 1] == '-' ?
+            parseInt(amount) + parseInt(popvalue) : 
+            (inputStr.length == 0 ? 0 :
+             amount)),
+        inputStrShow: inputStr.join('')
+      })
+    }
+  
+    if (value == '+' || value == '-') {
+      if (inputStr.length==0 || inputStr[inputStr.length - 1] == '+' || inputStr[inputStr.length - 1] == '-') {
+        return;
+      }
+      inputStr.push(value);
+      this.setData({
+        inputStr: inputStr,
+        inputStrShow: inputStr.join('')
+      })
+    }
+  },
   /**
    * 用户点击右上角分享
    */
