@@ -3,7 +3,7 @@ import requestUrl from "../../common/api.js"
 const app = getApp()
 Page({
   data: {
-    index: 0,
+    date: '2017-09',
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)

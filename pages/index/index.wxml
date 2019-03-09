@@ -5,8 +5,8 @@
   <view class='title-none'>您暂无权限浏览数据</view>
 </view> -->
 <view class="section">
-  <view class="section__title">日期选择器</view>
-  <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+  <!-- <view class="section__title">日期选择器</view> -->
+  <picker mode="date" value="{{date}}" start="2017-09" end="2020-09" fields="month" bindchange="bindDateChange">
     <view class="picker">
       当前选择: {{date}}
     </view>
