@@ -27,23 +27,21 @@ App({
                 success: res2 => {
                   if (res2.data.msg == 'noLogin') {
                     wx.request({
-
                       url: requestUrl.login + "?code=" + code,
                       header: {
                         'content-type': 'application/json' // 默认值
                       },
                       success: res3 => {
-
+                        console.log(res3)
+                        console.log(res3.data.obj.trd_session)
                         wx.setStorage({
                           key: "trd_session",
-                          data: res3.data.data
+                          data: res3.data.obj.trd_session
                         })
 
                       }
                     })
                   }
-
-
                 }
               })
             }
@@ -56,10 +54,10 @@ App({
                   'content-type': 'application/json' // 默认值
                 },
                 success: res4 => {
-
+                  console.log(res4.data)
                   wx.setStorage({
                     key: "trd_session",
-                    data: res4.data.data
+                    data: res4.data.obj.trd_session
                   })
 
                 }
@@ -77,7 +75,7 @@ App({
 
                 wx.setStorage({
                   key: "trd_session",
-                  data: res5.data.data
+                  data: res5.data.obj.trd_session
                 })
 
               }
@@ -134,7 +132,7 @@ App({
           key: 'trd_session',
           success: res => {
             this.setUserInfo(res.data, this.globalData.userInfo)
-            this.getMoreInfo(res.data)
+            // this.getMoreInfo(res.data)
           },
         })
         // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
