@@ -3,7 +3,7 @@ import requestUrl from "../../common/api.js"
 var util = require('../../utils/util.js')
 const app = getApp()
 //const currentDay=getDate(year, month)
-const date=new Date()
+//const date=new Date()
 Page({
   data: {
     //date: '2017-09',
@@ -49,6 +49,7 @@ Page({
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
+            monthIO: res.data.monthIO
     //选定月份后重新获取账单信息
     this.setData({
       date: e.detail.value
@@ -57,19 +58,37 @@ Page({
   },
   onShow: function (){
     //call 一次api获取当前月份的账单
-  },
-  onLoad: function () {
     this.setData({
       date: util.formatTime(new Date())
     });
     wx.request({
-      url: requestUrl.defaultMonthBill + '2019-03',
+      url: requestUrl.defaultMonthBill + this.data.date,
+      success: res => {
+        console.log(res)
+        if (res.statusCode == '200') {
+          console.log('调api')
+          console.log(res.data)
+          this.setData({
+            bill: res.data.bill,
+            monthIO: res.data.monthIO
+          })
+        }
+      }
+    })
+  },
+  onLoad: function (options) {
+    this.setData({
+      date: util.formatTime(new Date())
+    });
+    wx.request({
+      url: requestUrl.defaultMonthBill + this.data.date,
       success: res => {
         if (res.data.status == 'success') {
           console.log('调api')
           console.log(res.data)
           this.setData({
             userDetail: res.data.data,
+            monthIO:res.data.monthIO
           })
           app.globalData.userDetail = res.data.data
         }
@@ -101,10 +120,11 @@ Page({
 
   },
   itemTapped(e) { // 跳转工具详情
-    let passdata = e.currentTarget.dataset.passdata
-    console.log(passdata);
+    console.log(e.currentTarget.dataset)
+    let recordid = e.currentTarget.dataset.recordid
+    console.log(recordid);
     wx.navigateTo({
-      url: '/pages/bill-detail/bill-detail?'
+      url: '/pages/bill-detail/bill-detail?recordid='+recordid
     })
   }
 
