@@ -7,13 +7,13 @@
     </view>
 
     <view class='bill-type-content'>
-      <view wx:for='{{expendList}}' wx:if="{{billType==0}}" class='bill-type-item' data-index='{{index}}' bindtap='changeCurrentIndex'>
+      <view wx:for='{{outlaytypeList}}' wx:if="{{billType==0}}" class='bill-type-item' data-index='{{index}}' bindtap='changepayOutIndex'>
         <image src='{{item.imgUrl}}' class='type-item-image'></image>
-        <text>{{item.name}}</text>
+        <text>{{item.type}}</text>
       </view>
-      <view wx:for='{{incomeList}}' wx:if="{{billType==1}}" class='bill-type-item' data-index='{{index}}' bindtap='changeCurrentIndex'>
+      <view wx:for='{{incometypeList}}' wx:if="{{billType==1}}" class='bill-type-item' data-index='{{index}}' bindtap='changepayOutIndex'>
         <image src='{{item.imgUrl}}' class='type-item-image'></image>
-        <text >{{item.name}}</text>
+        <text >{{item.type}}</text>
       </view>
     </view>
   </view>
@@ -21,12 +21,12 @@
 
   <view style='align-self: flex-end;background-color:#FFFFFF'>
     <view class='type-item'>
-      <view class='type-item' style='padding:0.5rem 0;'>
+      <view class='type-item' style='padding:0.5rem 0; font-size: 0.6rem;'>
 
-        <image wx:if="{{billType==0}}" src="{{CurrentIndex == null ? expendList[0].imgUrl : expendList[CurrentIndex].imgUrl}}" class='bill-type-image'></image>
-        <image wx:if="{{billType==1}}" src="{{CurrentIndex == null ? incomeList[0].imgUrl : incomeList[CurrentIndex].imgUrl}}" class='bill-type-image'></image>
-        <text wx:if="{{billType==0}}">{{CurrentIndex == null ? expendList[0].name : expendList[CurrentIndex].name }}</text>
-        <text wx:if="{{billType==1}}">{{CurrentIndex == null ? incomeList[0].name : incomeList[CurrentIndex].name}}</text>
+        <image wx:if="{{billType==0}}" src="{{payOutIndex == 0 ? outlaytypeList[0].imgUrl : outlaytypeList[payOutIndex].imgUrl}}" class='bill-type-image'></image>
+        <image wx:if="{{billType==1}}" src="{{inComeIndex == 0 ? incometypeList[0].imgUrl : incometypeList[inComeIndex].imgUrl}}" class='bill-type-image'></image>
+        <text wx:if="{{billType==0}}">{{payOutIndex == 0 ? outlaytypeList[0].type : outlaytypeList[payOutIndex].type }}</text>
+        <text wx:if="{{billType==1}}">{{inComeIndex == 0 ? incometypeList[0].type : incometypeList[inComeIndex].type}}</text>
       </view>
       <view style='padding-right: 1rem;'>
         <view>{{inputStr.length != 0 ? amount : '0.00'}}</view>

@@ -63,56 +63,81 @@ Page({
     inputStrShow: '',
     date: '今天',
     inputValue: '',
-    outlaytypeList: [],
-    incometypeList: [],
-    CurrentIndex:null
+    outlaytypeList: [{
+        imgUrl: '/images/food.png',
+        type: "餐饮"
+      },
+      {
+        imgUrl: '/images/shop-unselect.png',
+        type: "购物"
+      },
+    ],
+    incometypeList: [{
+        imgUrl: '/images/salary.png',
+        type: "工资"
+      },
+      {
+        imgUrl: '/images/red-unselect.png',
+        type: "收红包"
+      },
+    ],
+    payOutIndex: 0,
+    inComeIndex: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.request({
-      url: requestUrl.outlayKind,
-      success: res => {
-        console.log(res)
-        if (res.statusCode == '200') {
-          console.log('调api')
-          console.log(res.data)
-          this.setData({
-            outlaytypeList: res.data,
-          })
-        }
-      }
-    })
-    wx.request({
-      url: requestUrl.incomeKind,
-      success: res => {
-        console.log(res)
-        if (res.statusCode == '200') {
-          console.log('调api')
-          console.log(res.data)
-          this.setData({
-            incometypeList: res.data,
-          })
-        }
-      }
-    })
+    // wx.request({
+    //   url: requestUrl.outlayKind,
+    //   success: res => {
+    //     console.log(res)
+    //     if (res.statusCode == '200') {
+    //       console.log('调api')
+    //       console.log(res.data)
+    //       this.setData({
+    //         outlaytypeList: res.data,
+    //       })
+    //     }
+    //   }
+    // })
+    // wx.request({
+    //   url: requestUrl.incomeKind,
+    //   success: res => {
+    //     console.log(res)
+    //     if (res.statusCode == '200') {
+    //       console.log('调api')
+    //       console.log(res.data)
+    //       this.setData({
+    //         incometypeList: res.data,
+    //       })
+    //     }
+    //   }
+    // })
   },
-  changeCurrentIndex(e){
+  changepayOutIndex(e) {
     var value = e.currentTarget.dataset.index;
-    var expendList = this.data.expendList
-    expendList.map(function(item,index){
+    if ((this.data.billType == 0 && value == this.data.payOutIndex) ||
+      (this.data.billType == 1 && value == this.data.inComeIndex) ){
+      return;
+    }
+    var list = this.data.billType == 0 ? this.data.outlaytypeList : this.data.incometypeList
+    list.map((item, index) => {
       console.log(index)
       if (value == index) {
-        item.imgUrl = '/images/' + item.imgUrl.split("/")[1].split("-")[0] + '.png'
+        item.imgUrl = '/images/' + item.imgUrl.split("/")[2].split("-")[0] + '.png'
       } else {
-        item.imgUrl = '/images/' + item.imgUrl.split("/")[1] + '-unselect.png'
+        item.imgUrl = '/images/' + item.imgUrl.split("/")[2].split(".")[0] + '-unselect.png'
       }
     })
-    this.setData({
-      expendList: expendList,
-      CurrentIndex: index
+    this.data.billType == 0 && this.setData({
+      outlaytypeList: list,
+      payOutIndex: value
+    })
+    this.data.billType == 1 && this.setData({
+      incometypeList: list,
+      inComeIndex: value
     })
   },
   bindKeyInput(e) {
@@ -162,8 +187,7 @@ Page({
           (inputStr[inputStr.length - 1] == '-' ?
             parseInt(amount) + parseInt(popvalue) :
             (inputStr.length == 0 ? 0 :
-              (
-                !inputStr.includes("+") && !inputStr.includes("-") ? 
+              (!inputStr.includes("+") && !inputStr.includes("-") ?
                 inputStr.join('') : amount
               ))),
         inputStrShow: inputStr.join('')
