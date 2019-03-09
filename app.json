@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/mine/mine",
-    "pages/add-bill/add-bill"
+    "pages/add-bill/add-bill",
+    "pages/bill-detail/bill-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

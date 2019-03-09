@@ -3,19 +3,13 @@ import requestUrl from "../../common/api.js"
 const app = getApp()
 Page({
   data: {
-    locationList: [], //城市列表
-    objectMultiArray: [
-    ],
     index: 0,
-    conditionsList: ['分类一', '分类一', '分类一', '分类一', '分类一', '分类一', '分类一'],
-    toolsList: [], // 工具列表
-    canRequest: true, // 是否可以请求
-    showNone: false, // 展示空态
-    pageNum: 1,//页码
-    keyWord: '', //搜索关键字
-    toolstype: '', //工具类型
-    userDetail: '',
-    userInfo:""
+  },
+  bindDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      date: e.detail.value
+    })
   },
   onShow: function (){
     this.setData({
@@ -230,6 +224,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  itemTapped(e) { // 跳转工具详情
+    let passdata = e.currentTarget.dataset.passdata
+    console.log(passdata);
+    wx.navigateTo({
+      url: '/pages/bill-detail/bill-detail'
+    })
   }
 
 })

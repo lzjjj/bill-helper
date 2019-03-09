@@ -1,0 +1,13 @@
+/* pages/bill-detail/bill-detail.wxss */
+.mine-list{
+  padding: 1.73rem 1rem 0 1rem;
+}
+.list-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size:0.9rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #f8f8f8;
+  padding-bottom: 0.4rem;
+}

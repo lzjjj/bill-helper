@@ -1,0 +1,10 @@
+<view>
+<view class='mine-list'>
+  <view class='list-item' >
+    <view style='display:flex;justify-content:center;align-items:center;'>
+      <text>钱包余额</text>
+    </view>
+    <view>0.00元</view>
+  </view>
+  </view>
+</view>
