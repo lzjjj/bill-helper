@@ -7,7 +7,7 @@
   </view>
 </view>
 <view class='mine-list'>
-  <view class='list-item' bindtap='luanchToInfo'>
+  <view class='list-item' >
     <view style='display:flex;justify-content:center;align-items:center;'>
       <image src='/images/my-message.png' class='item-img'></image>
       <text>钱包余额</text>
@@ -27,12 +27,5 @@
       <text>记账总笔数</text>
     </view>
     <view>1笔</view>
-  </view>
-  <view class='list-item' bindtap='luanchToAreaHistory' wx:if="{{hasUserInfo && userDetail && userDetail.if_su}}">
-    <view style='display:flex;justify-content:center;align-items:center;'>
-      <image src='/images/history-list.png' class='item-img'></image>
-      <text>区域历史记录</text>
-    </view>
-    <view>></view>
   </view>
 </view>

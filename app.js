@@ -21,7 +21,6 @@ App({
 
             if (res1.data != undefined) {
               wx.request({
-
                 url: requestUrl.login + "?trd_session=" + res1.data,
                 header: {
                   'content-type': 'application/json' // 默认值
@@ -29,13 +28,11 @@ App({
                 success: res2 => {
                   if (res2.data.msg == 'noLogin') {
                     wx.request({
-
                       url: requestUrl.login + "?code=" + code,
                       header: {
                         'content-type': 'application/json' // 默认值
                       },
                       success: res3 => {
-
                         wx.setStorage({
                           key: "trd_session",
                           data: res3.data.data
