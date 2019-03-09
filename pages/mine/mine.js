@@ -13,7 +13,10 @@ Page({
     trd_session: "",
     goBack: false,
     goBackHome: false,
-    userDetail: ""
+    userDetail: "",
+    balance:"4.00",
+    days:"2",
+    records:"6"
   },
   onShow: function () {
     if (app.globalData.userInfo) {

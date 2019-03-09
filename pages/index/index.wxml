@@ -13,7 +13,7 @@
   </picker>
 </view>
 <view class="listview-container">
-  <!-- <block wx:for="{{newsList}}" wx:key=""> -->
+  <block wx:for="{{bill}}" wx:key="">
     <view class="playlog-item" >
       <view class="dotline">
         <!-- 竖线 -->
@@ -24,42 +24,15 @@
       </view>
       <view class="content">
         <view class='list-item' >
-          <text class="course">{{item.time}}03月08日</text>
+          <text class="course">{{item.date}}</text>
           <text class='course'>收:200.00  支:100.00</text>
         </view>
-        <view class='list-item' bindtap="itemTapped" data-passdata="工资+200">
-          <text class="chapter">{{item.content}}工资</text>
-          <text class="chapter">{{item.content}}+200</text>
-        </view>
-         <view class='list-item' bindtap="itemTapped">
-          <text class="chapter">{{item.content}}人情</text>
-          <text class="chapter">{{item.content}}-100</text>
-        </view>
-      </view>
-    </view>
-    <view class="playlog-item" >
-      <view class="dotline">
-        <!-- 竖线 -->
-        <view class="line"></view>
-        <!-- 圆点 -->
-        <view class="dot"></view>
-        <!-- 时间戳 -->
-      </view>
-      <view class="content">
-        <view class='list-item'>
-          <text class="course">{{item.time}}03月09日</text>
-          <text class='course'>收:220.00  支:100.00</text>
-        </view>
-        <view class='list-item' bindtap="itemTapped">
-          <text class="chapter">{{item.content}}工资</text>
-          <text class="chapter">{{item.content}}+220</text>
-        </view>
-         <view class='list-item' bindtap="itemTapped">
-          <text class="chapter">{{item.content}}人情</text>
-          <text class="chapter">{{item.content}}-100</text>
+        <view class='list-item' bindtap="itemTapped" data-passdata="工资+200" wx:for="{{item.records}}" wx:for-item="detail">
+          <text class="chapter">{{detail.type}}</text>
+          <text class="chapter">{{detail.money}}</text>
         </view>
       </view>
     </view>
     <ad unit-id="adunit-5abb45645905fc90" wx:if="{{index % 5 == 4}}"></ad>
-  <!-- </block> -->
+  </block>
 </view>
