@@ -75,20 +75,20 @@ page {
 .date {
   height: 2.5rem;
   line-height: 2.5rem;
-  width: 22.5%;
+  width: 30%;
   text-align: center;
   font-size: 0.8rem;
 }
 
 .bill-type-image {
   padding: 5px 5px 0 10px;
-  width: 25px;
-  height: 25px;
+  width: 40px;
+  height: 40px;
 }
 
 .remark-content {
   display: flex;
-  width: 77%;
+  width: 69%;
   border: 1px solid gainsboro;
   border-bottom: none;
   align-items: center;

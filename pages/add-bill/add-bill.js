@@ -9,37 +9,138 @@ Page({
   data: {
     trd_session: "",
     billType: 0, //0: pay out;1:get in 
-    keyboardvalue: [
-      { value: 1 },
-      { value: 2 },
-      { value: 3 },
-      { value: 4 },
-      { value: 5 },
-      { value: 6 },
-      { value: 7 },
-      { value: 8 },
-      { value: 9 },
-      { value: "." },
-      { value: 0 },
-      { value: 'clear' },
+    keyboardvalue: [{
+        value: 1
+      },
+      {
+        value: 2
+      },
+      {
+        value: 3
+      },
+      {
+        value: 4
+      },
+      {
+        value: 5
+      },
+      {
+        value: 6
+      },
+      {
+        value: 7
+      },
+      {
+        value: 8
+      },
+      {
+        value: 9
+      },
+      {
+        value: "."
+      },
+      {
+        value: 0
+      },
+      {
+        value: 'clear'
+      },
     ],
 
-    keyboardvalue1: [
-      { value: '+' },
-      { value: '-' },
-      { value: '完成' }
+    keyboardvalue1: [{
+        value: '+'
+      },
+      {
+        value: '-'
+      },
+      {
+        value: '完成'
+      }
     ],
 
-    amount:0.00,
+    amount: 0.00,
     inputStr: [],
-    inputStrShow:''
+    inputStrShow: '',
+    date: '今天',
+    inputValue: '',
+    outlaytypeList: [],
+    incometypeList: [],
+
+    }, {
+        imgUrl: '/images/red-unselect.png',
+        name: "收红包"
+      }, {
+        imgUrl: '/images/invest-unselect.png',
+        name: "投资"
+      }, {
+        imgUrl: '/images/borrow-unselect.png',
+        name: "借入款"
+      }, {
+        imgUrl: '/images/other-unselect.png',
+        name: "其他"
+      }],
+    expendList: [{
+      CurrentIndex:null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-   onLoad: function (options) {
-  
+  onLoad: function(options) {
+    wx.request({
+      url: requestUrl.outlayKind,
+      success: res => {
+        console.log(res)
+        if (res.statusCode == '200') {
+          console.log('调api')
+          console.log(res.data)
+          this.setData({
+            outlaytypeList: res.data,
+          })
+        }
+      }
+    })
+    wx.request({
+      url: requestUrl.incomeKind,
+      success: res => {
+        console.log(res)
+        if (res.statusCode == '200') {
+          console.log('调api')
+          console.log(res.data)
+          this.setData({
+            incometypeList: res.data,
+          })
+        }
+      }
+    })
+  },
+  changeCurrentIndex(e){
+    var value = e.currentTarget.dataset.index;
+    var expendList = this.data.expendList
+    expendList.map(function(item,index){
+      console.log(index)
+      if (value == index) {
+        item.imgUrl = '/images/' + item.imgUrl.split("/")[1].split("-")[0] + '.png'
+      } else {
+        item.imgUrl = '/images/' + item.imgUrl.split("/")[1] + '-unselect.png'
+      }
+    })
+    this.setData({
+      expendList: expendList,
+      CurrentIndex: index
+    })
+  },
+  bindKeyInput(e) {
+    console.log(e.detail.value)
+    this.setData({
+      inputValue: e.detail.value
+    })
+  },
+
+  bindDateChange(e) {
+    this.setData({
+      date: e.detail.value
+    })
   },
 
   typeChange(e) {
@@ -67,22 +168,25 @@ Page({
       })
 
     }
-    if (value == 'clear' && this.data.inputStr.length!=0) {
+    if (value == 'clear' && this.data.inputStr.length != 0) {
       var popvalue = inputStr.pop();
 
       this.setData({
         inputStr: inputStr,
         amount: inputStr[inputStr.length - 1] == '+' ? parseInt(amount) - parseInt(popvalue) :
           (inputStr[inputStr.length - 1] == '-' ?
-            parseInt(amount) + parseInt(popvalue) : 
+            parseInt(amount) + parseInt(popvalue) :
             (inputStr.length == 0 ? 0 :
-             amount)),
+              (
+                !inputStr.includes("+") && !inputStr.includes("-") ? 
+                inputStr.join('') : amount
+              ))),
         inputStrShow: inputStr.join('')
       })
     }
-  
+
     if (value == '+' || value == '-') {
-      if (inputStr.length==0 || inputStr[inputStr.length - 1] == '+' || inputStr[inputStr.length - 1] == '-') {
+      if (inputStr.length == 0 || inputStr[inputStr.length - 1] == '+' || inputStr[inputStr.length - 1] == '-') {
         return;
       }
       inputStr.push(value);
@@ -95,7 +199,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
