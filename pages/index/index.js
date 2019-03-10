@@ -98,7 +98,8 @@ Page({
   },
 
   onReachBottom: function () { //到底部触发事件
-    if (!this.data.showNone && this.data.userDetail.if_engineer) {
+    // if (!this.data.showNone && this.data.userDetail.if_engineer) {
+    if (!this.data.showNone){
       if (this.data.canRequest) {
         this.setData({
           pageNum: this.data.pageNum + 1
