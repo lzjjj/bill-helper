@@ -25,21 +25,6 @@ Page({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-      // if (app.globalData.userDetail) {
-      //   this.setData({
-      //     userDetail: app.globalData.userDetail,
-      //   })
-      // } else {
-      //   wx.getStorage({
-      //     key: 'trd_session',
-      //     success: (res) => {
-      //       this.setData({
-      //         trd_session: res.data
-      //       })
-      //       // this.getMoreInfo(this.data.trd_session);
-      //     },
-      //   })
-      // }
     }
   },
   /**
@@ -72,14 +57,17 @@ Page({
     wx.request({
       url: requestUrl.userDetail + '?trd_session=' + trd_session,
       success: res => {
+        console.log("get user info")
         console.log(res)
         console.log(res.data)
         if (res.statusCode == 200) {
           this.setData({
-            balance: res.data.balance,
-            days: res.data.days,
-            records: res.data.records,
+            balance: res.data.balance == null ? '0.0' : res.data.balance,
+            days: res.data.days == null ? '0' : res.data.days,
+            records: res.data.records == null ? '0' : res.data.records,
           })
+        } else {
+          
         }
       }
     })

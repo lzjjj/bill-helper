@@ -7,7 +7,6 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-
     // 登录
     wx.login({
       success: res => {
@@ -26,62 +25,20 @@ App({
                 },
                 success: res2 => {
                   if (res2.data.msg == 'noLogin') {
-                    wx.request({
-                      url: requestUrl.login + "?code=" + code,
-                      header: {
-                        'content-type': 'application/json' // 默认值
-                      },
-                      success: res3 => {
-                        console.log(res3)
-                        console.log(res3.data.obj.trd_session)
-                        wx.setStorage({
-                          key: "trd_session",
-                          data: res3.data.obj.trd_session
-                        })
-
-                      }
-                    })
+                    this.getSessionCode(code)
                   }
                 }
               })
             }
             else {
-
-              wx.request({
-
-                url: requestUrl.login + "?code=" + code,
-                header: {
-                  'content-type': 'application/json' // 默认值
-                },
-                success: res4 => {
-                  console.log(res4.data)
-                  wx.setStorage({
-                    key: "trd_session",
-                    data: res4.data.obj.trd_session
-                  })
-
-                }
-              })
+              this.getSessionCode(code)
             }
 
           },
-          fail: function () {
-            wx.request({
-              url: requestUrl.login + "?code=" + code,
-              header: {
-                'content-type': 'application/json' // 默认值
-              },
-              success: res5 => {
-
-                wx.setStorage({
-                  key: "trd_session",
-                  data: res5.data.obj.trd_session
-                })
-
-              }
-            })
+          fail: ()=>{
+            console.log('no storage')
+            this.getSessionCode(code)
           }
-
         })
         this.getUserInfo();
       },
@@ -102,9 +59,9 @@ App({
 
   //存储用户信息数据库
   setUserInfo(trd_session, userInfo) {
-
+    console.log('get from server : ' + trd_session)
     wx.request({
-      url: requestUrl.setUserInfo + "?trd_session=" + trd_session,
+      url: requestUrl.userDetail + "?trd_session=" + trd_session,
       method: "POST",
       header: {
         'content-type': 'application/json' // 默认值
@@ -152,6 +109,24 @@ App({
       }
     })
   },
+
+  getSessionCode(code){
+    console.log('get session code')
+    wx.request({
+      url: requestUrl.login + "?code=" + code,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        wx.setStorage({
+          key: "trd_session",
+          data: res.data.obj.trd_session
+        })
+      }
+    })
+  },
+  
   globalData: {
     goBackHome:false,
     userDetail:'',
