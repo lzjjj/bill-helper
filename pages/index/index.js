@@ -7,7 +7,7 @@ const app = getApp()
 Page({
   data: {
     //date: '2017-09',
-    date:'',
+    date:util.formatTime(new Date()),
     bill:
       [
         {
@@ -49,18 +49,17 @@ Page({
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-            monthIO: res.data.monthIO
+            // monthIO: res.data.monthIO
     //选定月份后重新获取账单信息
     this.setData({
       date: e.detail.value
     })
+    this.onShow()
     //查询所选月份的账单
   },
   onShow: function (){
-    //call 一次api获取当前月份的账单
-    this.setData({
-      date: util.formatTime(new Date())
-    });
+    //call 一次api获取当前月份的账单'
+    console.log('--date--' + this.data.date)
     wx.request({
       url: requestUrl.defaultMonthBill + this.data.date,
       success: res => {
@@ -77,9 +76,11 @@ Page({
     })
   },
   onLoad: function (options) {
-    this.setData({
-      date: util.formatTime(new Date())
-    });
+    console.log('--date1--' + this.data.date)
+    // this.setData({
+    //   date: util.formatTime(new Date())
+    // });
+    console.log('--date2--' + this.data.date)
     wx.request({
       url: requestUrl.defaultMonthBill + this.data.date,
       success: res => {
@@ -92,7 +93,7 @@ Page({
           })
           app.globalData.userDetail = res.data.data
         }
-      }
+      } 
     })
   },
 
