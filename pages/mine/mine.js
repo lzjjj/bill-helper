@@ -26,6 +26,15 @@ Page({
         hasUserInfo: true
       })
     }
+    wx.getStorage({
+      key: 'trd_session',
+      success: (res) => {
+        this.setData({
+          trd_session: res.data
+        }),
+          this.getMoreInfo(this.data.trd_session)
+      },
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -100,5 +109,17 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onPullDownRefresh: () => {
+    wx.getStorage({
+      key: 'trd_session',
+      success: (res) => {
+        this.setData({
+          trd_session: res.data
+        }),
+          this.getMoreInfo(this.data.trd_session)
+      },
+    })
   }
 })
