@@ -1,5 +1,6 @@
 // pages/bill-detail/bill-detail.js
 import requestUrl from "../../common/api.js"
+
 //获取一次详情
 //编辑账单
 //删除账单
@@ -18,19 +19,37 @@ Page({
     date: '2018-09-01',
   },
   bindPickerChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('类型，携带值为1', e.detail.value)
     this.setData({
       index: e.detail.value
     })
   },
   bindDateChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('日期，携带值为', e.detail.value)
     this.setData({
       date: e.detail.value
     })
   },
   editBill:function(){
-    console.log('edit')
+    console.log('edit： ' + this.data.recordid)
+    const recordid = this.data.recordid
+    wx.showModal({
+      title: '提示',
+      content: '确认保存',
+      success : (res) =>{
+        if(res.confirm){
+          wx.request({
+            url: requestUrl.account + '/' + recordid,
+            method : 'Patch',
+            data : {
+              
+            }
+          })
+        }else{
+          console.log('取消保存')
+        }
+      }
+    })
     wx.showToast({
       title: '保存成功',
     })
