@@ -232,11 +232,8 @@ Page({
     }
 
     if (value == '+' || value == '-') {
-      if (inputStr.length == 0) {
+      if (inputStr.length == 0 || inputStr[inputStr.length - 1] == '+' || inputStr[inputStr.length - 1] == '-') {
         return;
-      }
-      if (inputStr[inputStr.length - 1] == '+' || inputStr[inputStr.length - 1] == '-') {
-        lastOp.pop()
       }
       inputStr.push(value)
       lastOp.push(value)
@@ -251,6 +248,13 @@ Page({
     }
 
     if (value == '完成') {
+      if (this.data.amount < 0 || this.data.amount == 0) {
+        wx.showToast({
+          title: '记账总数不正确！',
+          icon: 'none'
+        })
+        return
+      }
       wx.request({
         url: requestUrl.account + '?trd_session=' + this.data.trd_session,
         method: 'Post',
