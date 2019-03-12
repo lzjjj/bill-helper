@@ -102,9 +102,11 @@ Page({
     wx.getStorage({
       key: 'trd_session',
       success: (res) => {
-        this.setData({
-          trd_session : res.data
-        })
+        if(res.data != undefined){
+          this.setData({
+            trd_session: res.data
+          })
+        }
       },
     })
     // wx.request({
@@ -251,6 +253,28 @@ Page({
         lastOp : lastOp,
         inputStr: inputStr,
         inputStrShow: inputStr.join('')
+      })
+    }
+
+    if(value == '完成') {
+      wx.request({
+        url: requestUrl.account + '?trd_session=' + this.data.trd_session,
+        method : 'Post',
+        data : {
+          type: {
+            type: this.data.billType == 1 ? this.data.incometypeList[this.data.inComeIndex].type : this.data.outlaytypeList[this.data.payOutIndex].type,
+          },
+          amount : this.data.amount,
+          accountKind : this.data.billType,
+          remark : this.data.inputValue,
+        }, 
+        success : ()=>{
+          wx.showToast({
+            title: '记账成功',
+            icon: 'none',
+            duration: 2000
+          })
+        }
       })
     }
   },

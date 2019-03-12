@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/mine/mine",
     "pages/index/index",
     "pages/add/add",
     "pages/bill-detail/bill-detail",
-    "pages/add-bill/add-bill",
-    "pages/mine/mine"
+    "pages/add-bill/add-bill"
   ],
   "window": {
     "backgroundTextStyle": "light",

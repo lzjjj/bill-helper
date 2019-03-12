@@ -60,20 +60,27 @@ Page({
   onShow: function (){
     //call 一次api获取当前月份的账单'
     console.log('--date--' + this.data.date)
-    // wx.request({
-    //   url: requestUrl.defaultMonthBill + this.data.date + '?trd_session=' + res.data,
-    //   success: res => {
-    //     console.log(res)
-    //     if (res.statusCode == '200') {
-    //       console.log('调api')
-    //       console.log(res.data)
-    //       this.setData({
-    //         bill: res.data.bill,
-    //         monthIO: res.data.monthIO
-    //       })
-    //     }
-    //   }
-    // })
+    wx.getStorage({
+      key: 'trd_session',
+      success: (res) => {
+        wx.request({
+          url: requestUrl.defaultMonthBill + this.data.date + '?trd_session=' + res.data,
+          success: res => {
+            console.log('--on load------------------------')
+            console.log(res)
+            if (res.statusCode == 200) {
+              console.log('调api')
+              console.log(res.data)
+              this.setData({
+                monthIO: res.data.monthIO,
+                bill: res.data.bill,
+              })
+              // app.globalData.userDetail = res.data.data
+            }
+          }
+        })
+      },
+    })
   },
   onLoad: function (options) {
     console.log('--date1--' + this.data.date)
@@ -96,7 +103,7 @@ Page({
                 monthIO: res.data.monthIO,
                 bill : res.data.bill,
               })
-              app.globalData.userDetail = res.data.data
+              // app.globalData.userDetail = res.data.data
             }
           }
         })
