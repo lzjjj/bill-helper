@@ -17,7 +17,7 @@ Page({
     remark:'',
     type:'',
     array: ['工资', '奖金', '人情', '饮食', ],
-    index:0,
+    index:null,
     date: '2018-09-01',
     dateStr : '',
   },

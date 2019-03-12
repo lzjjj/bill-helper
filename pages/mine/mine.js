@@ -19,7 +19,6 @@ Page({
     records:"0"
   },
   onShow: function () {
-    console.log(app.globalData)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -66,9 +65,6 @@ Page({
     wx.request({
       url: requestUrl.userDetail + '?trd_session=' + trd_session,
       success: res => {
-        console.log("get user info")
-        console.log(res)
-        console.log(res.data)
         if (res.statusCode == 200) {
           this.setData({
             balance: res.data.balance == null ? '0.0' : res.data.balance,
@@ -82,7 +78,6 @@ Page({
     })
   },
   getUserInfo: function (e) {
-    console.log(e)
     if (e.detail.userInfo) {
       app.globalData.userInfo = e.detail.userInfo
       this.setData({
@@ -95,7 +90,6 @@ Page({
           this.setData({
             trd_session: res.data
           })
-          console.log(this.data.trd_session)
           this.getMoreInfo(this.data.trd_session);
           app.setUserInfo(res.data, app.globalData.userInfo)
         },
