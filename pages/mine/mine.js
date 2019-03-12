@@ -14,9 +14,9 @@ Page({
     goBack: false,
     goBackHome: false,
     userDetail: "",
-    balance:"",
-    days:"",
-    records:""
+    balance:"0.00",
+    days:"0",
+    records:"0"
   },
   onShow: function () {
     console.log(app.globalData)
