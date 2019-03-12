@@ -11,18 +11,27 @@ Page({
    * Page initial data
    */
   data: {
-    trd_session:'',
-    recordid:'',
-    amount:'',
-    remark:'',
-    type:'',
-    array: ['工资', '奖金', '人情', '饮食', ],
-    index:null,
+    trd_session: '',
+    recordid: '',
+    amount: '',
+    remark: '',
+    type: '',
+    array: ['工资', '奖金', '人情', '饮食'],
+    index: null,
     date: '2018-09-01',
-    dateStr : '',
   },
+
+  bindAmountInput(e) {
+    if (isNaN(e.detail.value)) {
+      return;
+    }
+    this.setData({
+      amount: e.detail.value
+    })
+    console.log(e.detail.value)
+  },
+
   bindPickerChange(e) {
-    console.log('类型，携带值为1', e.detail.value)
     this.setData({
       index: e.detail.value
     })
@@ -33,25 +42,28 @@ Page({
       date: e.detail.value
     })
   },
-  editBill:function(){
+  editBill: function() {
     console.log('edit： ' + this.data.recordid)
     const recordid = this.data.recordid
     wx.showModal({
       title: '提示',
       content: '确认保存',
-      success : (res) =>{
-        if(res.confirm){
-          console.log('confirm')
+      success: (res) => {
+        if (res.confirm) {
+          const index = this.data.index
+          const array = this.data.array
           wx.request({
-            url: requestUrl.account + '/' + recordid +'?trd_session=' + this.data.trd_session,
-            method : 'Post',
-            data : {
+            url: requestUrl.account + '/' + recordid + '?trd_session=' + this.data.trd_session,
+            method: 'Post',
+            data: {
               amount: this.data.amount,
-              type:{type : this.data.type},
-              date : this.data.date,
-              remark : this.data.remark
+              type: {
+                type: index == null ? this.data.type : array[index]
+              },
+              date: this.data.date,
+              remark: this.data.remark
             },
-            success : res=>{
+            success: res => {
               wx.showToast({
                 title: '保存成功',
               })
@@ -60,14 +72,14 @@ Page({
               })
             }
           })
-        }else{
+        } else {
           console.log('取消保存')
         }
       }
     })
-    
+
   },
-  deleteBill:function(){
+  deleteBill: function() {
     console.log('delete' + this.data.recordid)
     const recordid = this.data.recordid
     wx.showModal({
@@ -78,7 +90,7 @@ Page({
           console.log('用户点击确定' + recordid)
           wx.request({
             url: requestUrl.deleteRecord + recordid,
-            method:'Delete',
+            method: 'Delete',
             success: res => {
               console.log(res)
               if (res.statusCode == '204') {
@@ -98,16 +110,16 @@ Page({
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log(options.recordid)
     this.setData({
-      recordid:options.recordid
+      recordid: options.recordid
     })
     wx.getStorage({
       key: 'trd_session',
-      success: (res)=> {
+      success: (res) => {
         this.setData({
-          trd_session : res.data
+          trd_session: res.data
         })
         wx.request({
           url: requestUrl.type + '?trd_session=' + res.data,
@@ -131,8 +143,7 @@ Page({
           this.setData({
             amount: res.data.amount,
             remark: res.data.remark,
-            date: res.data.date,
-            dateStr: util.convertJSon(res.data.date),
+            date: util.convertJSon(res.data.date),
             type: res.data.type.type
           })
         }
@@ -150,49 +161,49 @@ Page({
   /**
    * Lifecycle function--Called when page is initially rendered
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * Lifecycle function--Called when page show
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * Lifecycle function--Called when page hide
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * Lifecycle function--Called when page unload
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * Page event handler function--Called when user drop down
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * Called when page reach bottom
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * Called when user click on the top right corner to share
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

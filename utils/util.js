@@ -6,8 +6,8 @@ const formatTime = date => {
   const minute = date.getMinutes()
   const second = date.getSeconds()
 
- // return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-  return [year, month].map(formatNumber).join('-') 
+  // return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month].map(formatNumber).join('-')
 }
 
 const formatNumber = n => {
@@ -15,8 +15,9 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+
 const convertJSon = dateJSon => {
-  return dateJSon.substring(0, 10) + ' ' + dateJSon.substring(12, 19); 
+  return dateJSon.substring(0, 11);
 }
 
 module.exports = {
