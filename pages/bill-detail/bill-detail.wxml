@@ -26,7 +26,7 @@
   <!-- <view class="section__title">日期选择器</view> -->
     <picker mode="date" value="{{date}}" start="2017-09-01" end="2020-09-01"  bindchange="bindDateChange">
       <view class="picker">
-         {{date}}
+         {{dateStr}}
       </view>
     </picker>
   </view>
@@ -35,7 +35,7 @@
     <view style='display:flex;justify-content:center;align-items:center;'>
       <text>备注</text>
     </view>
-    <view><input value='{{remark}}'></input></view>
+    <view><input value='{{remark}}' bindinput='bindKeyInput'></input></view>
   </view>
   </view>
   <button bindtap='editBill'>保存</button>

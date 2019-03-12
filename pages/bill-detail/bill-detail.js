@@ -19,6 +19,7 @@ Page({
     array: ['工资', '奖金', '人情', '饮食', ],
     index:0,
     date: '2018-09-01',
+    dateStr : '',
   },
   bindPickerChange(e) {
     console.log('类型，携带值为1', e.detail.value)
@@ -40,11 +41,23 @@ Page({
       content: '确认保存',
       success : (res) =>{
         if(res.confirm){
+          console.log('confirm')
           wx.request({
-            url: requestUrl.account + '/' + recordid,
-            method : 'Patch',
+            url: requestUrl.account + '/' + recordid +'?trd_session=' + this.data.trd_session,
+            method : 'Post',
             data : {
-              
+              amount: this.data.amount,
+              type:{type : this.data.type},
+              date : this.data.date,
+              remark : this.data.remark
+            },
+            success : res=>{
+              wx.showToast({
+                title: '保存成功',
+              })
+              wx.navigateBack({
+                url: '/pages/index/index'
+              })
             }
           })
         }else{
@@ -52,9 +65,7 @@ Page({
         }
       }
     })
-    wx.showToast({
-      title: '保存成功',
-    })
+    
   },
   deleteBill:function(){
     console.log('delete' + this.data.recordid)
@@ -95,6 +106,9 @@ Page({
     wx.getStorage({
       key: 'trd_session',
       success: (res)=> {
+        this.setData({
+          trd_session : res.data
+        })
         wx.request({
           url: requestUrl.type + '?trd_session=' + res.data,
           success: res => {
@@ -112,17 +126,24 @@ Page({
     wx.request({
       url: requestUrl.getOneRecordDetail + options.recordid,
       success: res => {
-        console.log(res)
-        console.log(res.data.date.substring(3))
+        console.log('detail-----' + res)
         if (res.statusCode == '200') {
           this.setData({
             amount: res.data.amount,
             remark: res.data.remark,
-            date: res.data.date.substring(0, 10) + ' ' + res.data.date.substring(12, 19),
+            date: res.data.date,
+            dateStr: util.convertJSon(res.data.date),
             type: res.data.type.type
           })
         }
       }
+    })
+  },
+
+  bindKeyInput(e) {
+    console.log(e.detail.value)
+    this.setData({
+      remark: e.detail.value
     })
   },
 
