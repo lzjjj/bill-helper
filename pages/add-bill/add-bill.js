@@ -265,6 +265,7 @@ Page({
           amount: this.data.amount,
           accountKind: this.data.billType,
           remark: this.data.inputValue,
+          dateStr : this.data.date,
         },
         success: () => {
           wx.showToast({
