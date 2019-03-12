@@ -12,11 +12,11 @@
     </view>
     <view class="section">
       <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-      <view class="picker">
-        {{array[index]}}
-      </view>
-  </picker>
-</view>
+        <view class="picker">
+          {{array[index]}}
+        </view>
+      </picker>
+    </view>
   </view>
   <view class='list-item' >
     <view style='display:flex;justify-content:center;align-items:center;'>

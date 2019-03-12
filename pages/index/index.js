@@ -60,20 +60,20 @@ Page({
   onShow: function (){
     //call 一次api获取当前月份的账单'
     console.log('--date--' + this.data.date)
-    wx.request({
-      url: requestUrl.defaultMonthBill + this.data.date,
-      success: res => {
-        console.log(res)
-        if (res.statusCode == '200') {
-          console.log('调api')
-          console.log(res.data)
-          this.setData({
-            bill: res.data.bill,
-            monthIO: res.data.monthIO
-          })
-        }
-      }
-    })
+    // wx.request({
+    //   url: requestUrl.defaultMonthBill + this.data.date + '?trd_session=' + res.data,
+    //   success: res => {
+    //     console.log(res)
+    //     if (res.statusCode == '200') {
+    //       console.log('调api')
+    //       console.log(res.data)
+    //       this.setData({
+    //         bill: res.data.bill,
+    //         monthIO: res.data.monthIO
+    //       })
+    //     }
+    //   }
+    // })
   },
   onLoad: function (options) {
     console.log('--date1--' + this.data.date)
@@ -81,19 +81,26 @@ Page({
     //   date: util.formatTime(new Date())
     // });
     console.log('--date2--' + this.data.date)
-    wx.request({
-      url: requestUrl.defaultMonthBill + this.data.date,
-      success: res => {
-        if (res.data.status == 'success') {
-          console.log('调api')
-          console.log(res.data)
-          this.setData({
-            userDetail: res.data.data,
-            monthIO:res.data.monthIO
-          })
-          app.globalData.userDetail = res.data.data
-        }
-      } 
+    wx.getStorage({
+      key: 'trd_session',
+      success: (res) => {
+        wx.request({
+          url: requestUrl.defaultMonthBill + this.data.date + '?trd_session=' + res.data,
+          success: res => {
+            console.log('--on load------------------------')
+            console.log(res)
+            if (res.statusCode == 200) {
+              console.log('调api')
+              console.log(res.data)
+              this.setData({
+                monthIO: res.data.monthIO,
+                bill : res.data.bill,
+              })
+              app.globalData.userDetail = res.data.data
+            }
+          }
+        })
+      },
     })
   },
 
@@ -127,6 +134,30 @@ Page({
     console.log(recordid);
     wx.navigateTo({
       url: '/pages/bill-detail/bill-detail?recordid='+recordid
+    })
+  },
+
+  onPullDownRefresh(){
+    wx.getStorage({
+      key: 'trd_session',
+      success: (res) => {
+        wx.request({
+          url: requestUrl.defaultMonthBill + this.data.date + '?trd_session=' + res.data,
+          success: res => {
+            console.log('--------------------------')
+            console.log(res.data)
+            if (res.data.status == 'success') {
+              console.log('调api')
+              console.log(res.data)
+              this.setData({
+                bill: res.data.bill,
+                monthIO: res.data.monthIO
+              })
+              app.globalData.userDetail = res.data.data
+            }
+          }
+        })
+      },
     })
   }
 
