@@ -1,5 +1,6 @@
 // pages/bill-detail/bill-detail.js
 import requestUrl from "../../common/api.js"
+import util from "../../utils/util.js"
 
 //获取一次详情
 //编辑账单
@@ -10,6 +11,7 @@ Page({
    * Page initial data
    */
   data: {
+    trd_session:'',
     recordid:'',
     amount:'',
     remark:'',
@@ -90,16 +92,34 @@ Page({
     this.setData({
       recordid:options.recordid
     })
+    wx.getStorage({
+      key: 'trd_session',
+      success: (res)=> {
+        wx.request({
+          url: requestUrl.type + '?trd_session=' + res.data,
+          success: res => {
+            console.log('--detail--')
+            console.log(res)
+            if (res.statusCode == '200') {
+              this.setData({
+                array: res.data
+              })
+            }
+          }
+        })
+      },
+    })
     wx.request({
       url: requestUrl.getOneRecordDetail + options.recordid,
       success: res => {
         console.log(res)
+        console.log(res.data.date.substring(3))
         if (res.statusCode == '200') {
           this.setData({
-            amount:res.data.amount,
-            remark:res.data.remark,
-            date:res.data.date,
-            type:res.data.type.type
+            amount: res.data.amount,
+            remark: res.data.remark,
+            date: res.data.date.substring(0, 10) + ' ' + res.data.date.substring(12, 19),
+            type: res.data.type.type
           })
         }
       }
