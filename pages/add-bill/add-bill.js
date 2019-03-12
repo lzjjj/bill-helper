@@ -58,7 +58,10 @@ Page({
       }
     ],
 
-    amount: 0.00,
+    amount: 0,
+    preAmount : [0,0],
+    num : 0,
+    lastOp: ['',''],
     inputStr: [],
     inputStrShow: '',
     date: '今天',
@@ -89,7 +92,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    // var preAmount = this.data.preAmount.push(0)
+    // var lastOp = this.data.lastOp
+    // console.log('onload---' + preAmount[1])
+    // this.setData({
+    //   preAmount: preAmount,
+    //   lastOp : lastOp.push('')
+    // })
+    wx.getStorage({
+      key: 'trd_session',
+      success: (res) => {
+        this.setData({
+          trd_session : res.data
+        })
+      },
+    })
     // wx.request({
     //   url: requestUrl.outlayKind,
     //   success: res => {
@@ -167,40 +184,71 @@ Page({
     var rsNum = regNum.exec(value);
     var inputStr = this.data.inputStr
     var amount = this.data.amount
+    var preAmount = this.data.preAmount
+    var num = this.data.num
+    var lastOp = this.data.lastOp
+    console.log(amount + ':' + preAmount + ':' + num)
     if (rsNum != null) {
       inputStr.push(value)
-
-      this.setData({
-        inputStr: inputStr,
-        amount: inputStr[inputStr.length - 2] == '+' ? parseInt(amount) + parseInt(rsNum) :
-          (inputStr[inputStr.length - 2] == '-' ?
-            parseInt(amount) - parseInt(rsNum) : inputStr.join('')),
-        inputStrShow: inputStr.join('')
-      })
-
+      if (value != '+' && value != '-'){
+        num = parseInt(num * 10) + parseInt(rsNum);
+        this.setData({
+          inputStr: inputStr,
+          // amount: inputStr[inputStr.length - 2] == '+' ? parseInt(amount) + parseInt(rsNum) :
+          //   (inputStr[inputStr.length - 2] == '-' ?
+          //     parseInt(amount) - parseInt(rsNum) : inputStr.join('')),
+          num: num,
+          amount: (lastOp[lastOp.length - 1] == '-') ? parseInt(preAmount[preAmount.length - 1]) - num :
+            (lastOp[lastOp.length - 1] == '+') ? parseInt(preAmount[preAmount.length - 1]) + num : num,
+          inputStrShow: inputStr.join('')
+        })
+      }
     }
     if (value == 'clear' && this.data.inputStr.length != 0) {
       var popvalue = inputStr.pop();
-
-      this.setData({
-        inputStr: inputStr,
-        amount: inputStr[inputStr.length - 1] == '+' ? parseInt(amount) - parseInt(popvalue) :
-          (inputStr[inputStr.length - 1] == '-' ?
-            parseInt(amount) + parseInt(popvalue) :
-            (inputStr.length == 0 ? 0 :
-              (!inputStr.includes("+") && !inputStr.includes("-") ?
-                inputStr.join('') : amount
-              ))),
-        inputStrShow: inputStr.join('')
-      })
+      if(popvalue == '+' || popvalue == '-'){
+        preAmount.pop()
+        lastOp.pop()
+        this.setData({
+          lastOp : lastOp,
+          preAmount : preAmount,
+          inputStr : inputStr, 
+          inputStrShow : inputStr.join(''),
+        })
+      } else{
+        num = parseInt(num / 10);
+        this.setData({
+          inputStr: inputStr,
+          // amount: inputStr[inputStr.length - 1] == '+' ? parseInt(amount) - parseInt(popvalue) :
+          //   (inputStr[inputStr.length - 1] == '-' ?
+          //     parseInt(amount) + parseInt(popvalue) :
+          //     (inputStr.length == 0 ? 0 :
+          //       (!inputStr.includes("+") && !inputStr.includes("-") ?
+          //         inputStr.join('') : amount
+          //       ))),
+          num: num,
+          amount: lastOp[lastOp.length - 1] == '+' ? preAmount[preAmount.length - 1] + num 
+                    : lastOp[lastOp.length - 1] == '-' ? preAmount[preAmount.length - 1] - num
+                    : num,
+            inputStrShow: inputStr.join('')
+        })
+      } 
     }
 
     if (value == '+' || value == '-') {
-      if (inputStr.length == 0 || inputStr[inputStr.length - 1] == '+' || inputStr[inputStr.length - 1] == '-') {
+      if (inputStr.length == 0) {
         return;
       }
-      inputStr.push(value);
+      if (inputStr[inputStr.length - 1] == '+' || inputStr[inputStr.length - 1] == '-'){
+        lastOp.pop()
+      }
+      inputStr.push(value)
+      lastOp.push(value)
+      preAmount.push(amount)
       this.setData({
+        num : 0,
+        preAmount: preAmount ,
+        lastOp : lastOp,
         inputStr: inputStr,
         inputStrShow: inputStr.join('')
       })
