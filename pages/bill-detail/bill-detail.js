@@ -60,7 +60,7 @@ Page({
               type: {
                 type: index == null ? this.data.type : array[index]
               },
-              date: this.data.date,
+              dateStr: this.data.date,
               remark: this.data.remark
             },
             success: res => {

@@ -38,6 +38,6 @@
     <view><input style='text-align: right' value='{{remark}}' bindinput='bindKeyInput'></input></view>
   </view>
   </view>
-  <button bindtap='editBill'>保存</button>
-  <button bindtap='deleteBill'>删除</button>
+  <button bindtap='editBill' style='width:90%;background-color:#f4ea2a;margin-bottom:5%'>保存</button>
+  <button bindtap='deleteBill' style='width:90%;background-color:#f4ea2a'>删除</button>
 </view>
