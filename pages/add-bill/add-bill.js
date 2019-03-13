@@ -140,10 +140,11 @@ Page({
     }
     var list = this.data.billType == 0 ? this.data.outlaytypeList : this.data.incometypeList
     list.map((item, index) => {
-      console.log(index)
       if (value == index) {
         item.imgUrl = '/images/' + item.imgUrl.split("/")[2].split("-")[0] + '.png'
-      } else {
+      } 
+      if ((this.data.billType == 0 && index == this.data.payOutIndex) ||
+        (this.data.billType == 1 && index == this.data.inComeIndex)) {
         item.imgUrl = '/images/' + item.imgUrl.split("/")[2].split(".")[0] + '-unselect.png'
       }
     })
@@ -155,6 +156,7 @@ Page({
       incometypeList: list,
       inComeIndex: value
     })
+    console.log(list)
   },
   bindKeyInput(e) {
     console.log(e.detail.value)
