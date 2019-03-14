@@ -16,17 +16,17 @@
 <view class="header-list-item">
   <view>
     <view class='fontsize'>收入</view>
-    <view>{{monthIO.income?monthIO.income:0}}.00</view>
+    <view class='toolong'>{{monthIO.income?monthIO.income:0}}.00</view>
   </view>
   <view class="line1"></view>
   <view>
     <view class='fontsize'>支出</view>
-    <view>{{monthIO.outlay?monthIO.outlay:0}}.00</view>
+    <view class='toolong'>{{monthIO.outlay?monthIO.outlay:0}}.00</view>
   </view>
   <view class="line2"></view>
   <view>
     <view class='fontsize'>余额</view>
-    <view>{{monthIO.balance?monthIO.balance:0}}.00</view>
+    <view class='toolong'>{{monthIO.balance?monthIO.balance:0}}.00</view>
   </view>
 </view>
 </view>
