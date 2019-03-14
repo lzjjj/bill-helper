@@ -28,9 +28,9 @@
         <text wx:if="{{billType==0}}">{{payOutIndex == 0 ? outlaytypeList[0].type : outlaytypeList[payOutIndex].type }}</text>
         <text wx:if="{{billType==1}}">{{inComeIndex == 0 ? incometypeList[0].type : incometypeList[inComeIndex].type}}</text>
       </view>
-      <view style='padding-right: 1rem;'>
-        <view>{{inputStr.length != 0 ? amount : '0.00'}}</view>
-        <view style='color:gainsboro;font-size:0.7rem;'>{{inputStr.length != 0 ? inputStrShow : ''}}</view>
+      <view style='padding-right: 1rem;text-align:right;'>
+        <view class='hidden' >{{inputStr.length != 0 ? amount : '0.00'}}</view>
+        <view style='color:gainsboro;font-size:0.7rem;' class='hidden'>{{inputStr.length != 0 ? inputStrShow : ''}}</view>
       </view>
     </view>
 

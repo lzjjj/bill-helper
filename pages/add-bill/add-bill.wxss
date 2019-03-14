@@ -116,8 +116,15 @@ page {
   margin-top: 1rem;
 }
 
-.type-item-image{
+.type-item-image {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+
+.hidden {
+  width: 80px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
