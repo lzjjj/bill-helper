@@ -85,11 +85,11 @@ Page({
     wx.showModal({
       title: '提示',
       content: '删除后数据不可恢复',
-      success(res) {
+      success:(res) => {
         if (res.confirm) {
           console.log('用户点击确定' + recordid)
           wx.request({
-            url: requestUrl.deleteRecord + recordid,
+            url: requestUrl.deleteRecord + recordid + "?trd_session=" + this.data.trd_session,
             method: 'Delete',
             success: res => {
               console.log(res)
@@ -133,22 +133,23 @@ Page({
             }
           }
         })
+        wx.request({
+          url: requestUrl.getOneRecordDetail + options.recordid + '?trd_session=' + res.data,
+          success: res => {
+            console.log('detail-----' + res)
+            if (res.statusCode == '200') {
+              this.setData({
+                amount: res.data.amount,
+                remark: res.data.remark,
+                date: util.convertJSon(res.data.date),
+                type: res.data.type.type
+              })
+            }
+          }
+        })
       },
     })
-    wx.request({
-      url: requestUrl.getOneRecordDetail + options.recordid,
-      success: res => {
-        console.log('detail-----' + res)
-        if (res.statusCode == '200') {
-          this.setData({
-            amount: res.data.amount,
-            remark: res.data.remark,
-            date: util.convertJSon(res.data.date),
-            type: res.data.type.type
-          })
-        }
-      }
-    })
+
   },
 
   bindKeyInput(e) {
